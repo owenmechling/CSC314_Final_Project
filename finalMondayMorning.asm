@@ -6,7 +6,9 @@ segment .data
     border_msg_3            db  "////////////////////\\\\\\\\\\\\\\\\\\\\", 0
     border_msg_4            db  "\\\\\\\\\\\\\\\\\\\\////////////////////", 0
     border_msg_5            db  "........................................", 0
-    title_msg               db  "The Labyrinth. Game by Jacob Miller, Zachary Pickard and Owen Mechling", 0
+    border_msg_6            db  "|||||||||||||||||||  |||||||||||||||||||", 0
+    title_msg               db  "-------------The Labyrinth--------------", 0 
+    title_msg_2             db  "A game by Jacob Miller, Zachary Pickard and Owen Mechling", 0
     intro_msg               db  "You find yourself in an overgrown, dark and ominous room made of stone. The vines grow into the rocks, and you feel an urge to press onward.", 0
     health_msg              db  "Current Health: ", 0
     choices_battle          db  "1. Fight      2. Run     3. Taunt ", 0 
@@ -58,8 +60,8 @@ segment .data
     death_msg               db  "You have no health left. Everything fades, and you wake up in a familiar dark room.", 0
 	battle_taunt_msg        db  "Your taunts enrage the beast, but you avoid combat.", 0
 	taunt_attempt_msg		db 	"You attempt to taunt the enemy...",0
-	taunt_success_msg		db 	"Your taunt works! You counter-attack and defeat the enemy!",0
-	taunt_fail_msg			db 	"Your taunt fails. The enemy attacks you!",0
+	taunt_success_msg		db 	"Your taunt works! The enemy becomes mentally incapacitated and allows you to pass as it reconsiders its life.",0
+	taunt_fail_msg			db 	"Your taunt fails... The enemy becomes enraged and lands a vicious blow on you!",0
     battle_fight_msg        db  "You fight bravely and defeat the beast!", 0
     battle_run_success_msg  db  "You succeed in running past the creature. It gives you no resistance.", 0
 	battle_loss_msg			db 	"The beast strikes a crippling blow! You feel yourself growing weaker..", 0
@@ -103,7 +105,16 @@ asm_main:
 	mov dword [branch_tracker], 0       ; Ensure branch_tracker starts at 0
 
     ; Display title and intro
+    mov eax, border_msg_2
+    call print_string
+    call print_nl
     mov eax, title_msg
+    call print_string
+    call print_nl
+    mov eax, border_msg_2
+    call print_string
+    call print_nl
+    mov eax, title_msg_2
     call print_string
     call print_nl
     mov eax, intro_msg
@@ -111,6 +122,8 @@ asm_main:
     call print_nl
 
 game_loop:
+
+    call print_border
     ; Check if health <= 0
     cmp dword [health], 0
     jle death
@@ -122,10 +135,12 @@ game_loop:
     call print_int
     call print_nl
 
-    ; Display border
-    mov eax, border_msg_5
-    call print_string
-    call print_nl
+    ; Display borders
+    ;mov eax, border_msg_5
+    ;call print_string
+    ;call print_nl
+
+    
 
     ; Determine ending if all 10 encounters have been completed
     cmp dword [encounter_number], 11
@@ -161,6 +176,7 @@ game_loop:
 encounter_1:
     mov eax, encounter_1_msg  ; Load the encounter message
     call print_string         ; Print the encounter message
+    call print_nl             ; Print a newline
     call get_choice           ; Get the player's choice
 
     cmp dword [choice], 1      ; Check if the choice is '1' (Left)
@@ -181,8 +197,7 @@ set_left_branch:
 set_right_branch:
     mov dword [branch_tracker], 2      ; Set Right branch
     inc dword [right_choice_count]     ; Increment Right choice count
-    cmp dword [right_choice_count], 5
-    je hidden_room                    ; Trigger hidden room if 5 Right choices
+                      ; Trigger hidden room if 5 Right choices
     ;inc dword [encounter_number]       ; Progress to Encounter 2
     jmp encounter_1R_logic
 
@@ -205,8 +220,8 @@ encounter_1R_logic:
     cmp dword [right_choice_count], 5
     je hidden_room                  ; Trigger secret room if count reaches 5
 
-    ; Progress to next encounter
-    inc dword [encounter_number]
+    ; Dont Progress to next encounter
+    ;inc dword [encounter_number]
     jmp game_loop
 
 
@@ -214,7 +229,7 @@ encounter_1R_logic:
 
 encounter_2:
     mov eax, encounter_2_msg
-    call print_sting
+    call print_string
     call print_nl
     mov eax, encounter_2_msg_2
     call print_string
@@ -232,7 +247,7 @@ encounter_2:
 ; Encounter 3: Cloaked Figure
 encounter_3:
     mov eax, encounter_3_msg
-    call print_stingr
+    call print_string
     call print_nl
     mov eax, encounter_3_msg_2
     call print_string
@@ -646,7 +661,21 @@ taunt_fail:
     call decrement_health     ; Lose 1 health
     ret                       ; Retry or move to another decision
 
-
+;helper function to print borders 2, 3 4 and 5
+print_border:
+    mov eax, border_msg_2
+    call print_string
+    call print_nl
+    mov eax, border_msg_3
+    call print_string
+    call print_nl
+    mov eax, border_msg_4
+    call print_string
+    call print_nl
+    mov eax, border_msg_5
+    call print_string
+    call print_nl
+    ret
 mov eax, 0
 mov esp, ebp
 pop ebp
