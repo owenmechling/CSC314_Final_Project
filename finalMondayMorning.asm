@@ -19,6 +19,7 @@ segment .data
     choices_LR              db  "1. Left     2. Right", 0
     item_choice_msg         db  "1. Ring    2. Map    3. Staff", 0
     choice_enter_msg        db  "Enter your choice: ", 0
+    what_do_msg             db  "What do you do?", 0
     ;----------------- Encounters
 
     ;----------------- Encounter 1
@@ -33,7 +34,7 @@ segment .data
     encounter_3_msg_2       db  "'A choice must be made...' the figure utters as it extends both arms towards you. As its fingers unfurl you see two small objects in each hand", 0
     encounter_3_msg_3       db  "In the left hand there is a multifaceted gem, glowing blue; in the right hand, a small smooth and ordinary stone.", 0
     encounter_3L_msg        db  "You reach out and take the gem from the figure's left hand. You hear a piercing wail and the stone dissolves into nothing in your hand.", 0
-    encounter_3R_msg      db  "You reach out and take the stone from the figure's right hand. The stone is warm, and gives you an unshakable feeling of deja vu...", 0
+    encounter_3R_msg        db  "You reach out and take the stone from the figure's right hand. The stone is warm, and gives you an unshakable feeling of deja vu...", 0
     encounter_3_end         db  "You look up and the figure is gone. You continue onward.", 0
     ;----------------- Encounter 4
     encounter_4_msg         db  "You hear strange whispers as you approach a glowing door. Do you enter? Yes(1) No(2)", 0
@@ -57,26 +58,38 @@ segment .data
     encounter_7_msg_2       db  "'Please, help me; I have a healing serum in my bag. If you can get it for me, I might be able to survive.'", 0
     encounter_7_choices     db  "1. Take the potion, leaving the adventurer for dead.   2. Retrieve the potion and give it to the dying adventurer.", 0
 	encounter_7_result_1	db  "You take the potion and leave the adventurer to die. As you walk away, the adventurer utters '...why...'... A sense of guilt comes over you..", 0
+    encounter_7_result_11   db  "You feel a sense of dread as you walk away from the adventurer. This dread does not stop you from drinking their health potion.", 0
 	encounter_7_result_2	db  "You retrieve the potion and give it to the adventurer. They drink it and their wounds begin to heal. They thank you and you go on your way.", 0
     ;----------------- Encounter 8
-    encounter_8_msg         db  "You find a riddle carved into the wall. Solve it to proceed.", 0
+    encounter_8_msg         db  "As you progress down the path, a knight stands in your way. You call out to them, but they say nothing.", 0
     ;----------------- Encounter 9
-    encounter_9_msg         db  "A giant statue stands before you. It looks like it could come alive at any moment.", 0
+    encounter_9_msg         db  "A giant statue holding a spear and shield stands before you. It looks like it could come alive at any moment.", 0
+    encounter_9_msg_2       db  "You feel a sense of unease as you approach by the statue. It seems to be watching you.", 0
+    encounter_9_msg_3       db  "With a great rumble and physics-breaking speeds the statue stabs its immense spear into the ground in front of you.", 0
+    encounter_9_msg_4       db  "You feel the ground shake beneath you as the statue's shield begins to glow. You feel a sense of fear as the shield's light grows brighter.", 0
+    encounter_9_msg_5       db  "The statue's shield explodes in a blinding light. You feel a sense of weightlessness and pain as you are thrown back into the darkness.", 0
+    encounter_9_msg_6       db  "You notice a small hole in the tip of the spear at eye level. You retrieve the small smooth stone from your belt and place it into the hole..", 0
+    encounter_9_msg_7       db  "The statue's shield stops glowing and the spear retracts back into the statue's hand. The statue's eyes glow a bright blue and it steps aside.", 0
     ;----------------- Final Encounter
+    final_encounter_welcome db  "An ornately decorated door materializes itself in front of you. You approach it.", 0
     final_encounter_msg     db  "Upon entering the next room, everything fades to black and a feeling of finality comes over you...", 0
     final_encounter_msg_2   db  "You hear a familiar voice, it fills the space around you and becomes all you can hear...", 0 
     final_encounter_msg_3   db  "' -- Y o u r  s o u l  i s  b e i n g  w e i g h e d . . . ' ", 0
     ;----------------- Endings
     good_ending_msg         db  "In an instant the darkness blinks to a bright, boundless room, full of color. The cloaked figure from before stands before you.", 0
-    good_ending_msg_2       db  "'You have shown great compassion and kindness. The Labyrinth is satiated. You are free.'", 0
-    bad_ending_msg          db  "The darkness closes in. You feel the weight of failure dragging you down.", 0
-    neutral_ending_msg      db  "You find yourself back in the starting room. Perhaps the labyrinth has no end...", 0
+    good_ending_msg_2       db  "'You have shown great compassion and kindness. The Labyrinth is satiated. You are free. The exit remains ahead.'", 0
+    good_ending_msg_3       db  "You feel a sense of relief as you step through the next door and into the light. You have escaped the Labyrinth. The sun has never felt so warm.", 0
+    bad_ending_msg          db  "The darkness closes in on you. You feel the weight of failure dragging you down.", 0
+    bad_ending_msg_2        db  "You begin to hear overlapping whispers in the back of your mind... '...they are not ready...' '...such a shame...' '...showed such potential...'", 0
+    bad_ending_msg_3        db  "You feel a sense of dread the blackness beneath you splits into a cavern... You begin to fall, accelerating at great speed", 0
+    bad_ending_msg_4        db  "You feel the wind rush past you as you fall into the void. You feel a sense of finality as you fall into the darkness for what feels like an eternity.", 0
+    neutral_ending_msg      db  "A door opens in front of you and you find yourself back in the starting room. Perhaps the labyrinth has no end...", 0
     thank_you_msg           db  "Thank you for playing!", 0
     ;----------------- Hidden Room
     hidden_room_msg         db  "You find a hidden room with three items. Choose wisely:", 0
     incorrect_item_msg      db  "Nothing happens. Choose again.", 0
     correct_item_msg        db  "The staff glows brightly as you pick it up! A secret door opens, revealing a way forward.", 0
-    hidden_ending           db  "You step into a room filled with gold, artifacts, and ancient texts of immense knowledge. You have achieved ultimate power!", 0
+    hidden_ending_msg       db  "You step into a room filled with gold, artifacts, and ancient texts of immense knowledge. The door vanishes behind you, and a new one appears before you.", 0
     failed_item_msg         db  "The room fades and a dark path forward manifests itself in front of you", 0
     ;----------------- Result Messages
     death_msg               db  "You have no health left. Everything fades to black and you can feel your consciousness slipping into the void...", 0
@@ -114,6 +127,7 @@ segment .bss
 	branch_tracker          resd 1          ; 0 = Not set, 1 = Left path, 2 = Right path
 	attempts                resd 1          ; Tracks number of attempts in the hidden room
     have_staff              resd 1          ; Flag for having the staff
+    have_statue_stone       resd 1          ; Flag for having the statue stone
 
 
 segment .text
@@ -129,6 +143,9 @@ asm_main:
     mov dword [encounter_number], 1        ; Start at first encounter
     mov dword [right_choice_count], 0      ; Initialize right path counter
 	mov dword [branch_tracker], 0       ; Ensure branch_tracker starts at 0
+    mov dword [attempts], 3             ; Initialize attempts for hidden room 
+    mov dword [have_staff], 0           ; Initialize staff flag
+    mov dword [have_statue_stone], 0    ; Initialize statue stone flag
 
     ; Display title and intro
     mov eax, border_msg_2
@@ -141,6 +158,7 @@ asm_main:
     call print_string
     call print_nl
     call print_nl
+    call print_nl
     mov eax, title_msg_2
     call print_string
     call print_nl
@@ -148,8 +166,10 @@ asm_main:
    
     call print_border_combo
 
+    call print_nl
     mov eax, intro_msg
     call print_string
+    call print_nl
     call print_nl
 
     ; Start game loop
@@ -166,6 +186,7 @@ game_loop:
     call print_string
     mov eax, [health]
     call print_int
+    call print_nl
     call print_nl
 
     ; Determine ending if all 10 encounters have been completed
@@ -310,6 +331,10 @@ encounter_3_right:
     mov eax, encounter_3_end
     call print_string
     call print_nl
+
+    ; Set flag for having the statue stone
+    mov dword [have_statue_stone], 1
+
     inc dword [encounter_number]
     jmp game_loop
 
@@ -421,30 +446,54 @@ encounter_7:
     mov  eax, encounter_7_choices
     call print_string
 	call print_nl
+
+    inc dword [encounter_number]
+
     call get_choice
     cmp dword [choice], '1'
     je doom_adventurer
     cmp dword [choice], '2'
-    je  save_adventurer
+    je  save_adventurer 
     jmp game_loop
 
 doom_adventurer:
     inc dword [health]
     mov dword [hubris], 2          ; Hubris = BAD
-    inc dword [encounter_number]
+
+    mov eax, encounter_7_result_1
+    call print_string
+    call print_nl
+
+    mov eax, encounter_7_result_11
+    call print_string
+    call print_nl
+
+    call increment_health
+
     jmp game_loop
 
 save_adventurer:
     mov dword [hubris], 1          ; Hubris = GOOD
-    inc dword [encounter_number]
+
+    mov eax, encounter_7_result_2
+    call print_string
+    call print_nl
+
     jmp game_loop
 
 
-;  -------------- Encounter 8: Riddle
+;  -------------- Encounter 8: Knight
 encounter_8:
     mov eax, encounter_8_msg
     call print_string
     call print_nl
+
+    mov eax, what_do_msg
+    call print_string
+    call print_nl
+
+    call battle 
+
     inc dword [encounter_number]
     jmp game_loop
 
@@ -453,11 +502,55 @@ encounter_9:
     mov eax, encounter_9_msg
     call print_string
     call print_nl
+    mov eax, encounter_9_msg_2
+    call print_string
+    call print_nl
+    mov eax, encounter_9_msg_3
+    call print_string
+    call print_nl
+    mov eax, encounter_9_msg_4
+    call print_string
+    call print_nl
+
+    ; Check if player has the statue stone
+    cmp dword [have_statue_stone], 1
+    je encounter_9_use_stone
+
+    cmp dword [have_statue_stone], 0
+    je encounter_9_no_stone
+
+    inc dword [encounter_number]
+    jmp game_loop
+
+encounter_9_use_stone:
+ 
+    mov eax, encounter_9_msg_6
+    call print_string
+    call print_nl
+    mov eax, encounter_9_msg_7
+    call print_string
+    call print_nl
+
+    ; Progress to the next encounter
+    inc dword [encounter_number]
+    jmp game_loop
+
+encounter_9_no_stone:
+    mov eax, encounter_9_msg_5
+    call print_string
+    call print_nl
+
+    ; Decrement health
+    call decrement_health
+
     inc dword [encounter_number]
     jmp game_loop
 
 ;  -------------- Final Encounter: The End
 final_encounter:
+    mov eax, final_encounter_welcome
+    call print_string
+    call print_nl
     mov eax, final_encounter_msg
     call print_string
     call print_nl
@@ -530,14 +623,24 @@ good_ending:
     call print_string
     call print_nl
 
-    ;check if player does not have the staff
-    cmp dword [have_staff], 0
-    je end_game
+    ;check if player has the staff
+    cmp dword [have_staff], 1
+    je  hidden_ending
 
-    mov eax, hidden_ending
+    ;if player does not have the staff
+    mov eax, good_ending_msg_3
+    call print_string
+    call print_nl
+    call end_game
+
+hidden_ending:
+    mov eax, hidden_ending_msg
     call print_string
     call print_nl
 
+    mov eax, good_ending_msg_3
+    call print_string
+    call print_nl
     call end_game
 
 neutral_ending:
@@ -580,6 +683,7 @@ death:
     mov dword [branch_tracker], 0
     mov dword [attempts], 3
     mov dword [have_staff], 0
+    mov dword [have_statue_stone], 0
 
     jmp game_loop
 
@@ -797,7 +901,6 @@ print_border_combo_2:
     call print_nl
     mov eax, border_msg_5
     call print_string
-    call print_nl
     call print_nl
 
     ret
